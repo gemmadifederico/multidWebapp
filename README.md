@@ -15,7 +15,7 @@ The project is composed by two main elements:
 First run the interactive floormap, and simulate the movements of an agent (the project can be found at https://github.com/delas/interactive-simulation-floormap).
 To run the web app execute: 
 ```python
-flask -app app run
+flask --app app run
 ```
 The interface offers the possibility to run the discovery of the simulated data.
 
