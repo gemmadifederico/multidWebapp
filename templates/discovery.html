@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Miner</title>
+    <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/svgs/solid/rocket.svg>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark navbar-static-top">
+      <a class="navbar-brand" href="\">Miner</a>
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="\discovery">Discovery</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="\conformance">Conformance</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main role="main">
+      <div class="position-relative overflow-hidden text-center bg-light">
+        <div class="col-md-8 p-lg-5 mx-auto mt-5">
+          <h1 class="display-4 font-weight-normal">Process Discovery</h1>
+          <p class="lead font-weight-normal">Discovery of control flow and data flow dimension.</p>
+        </div>
+      </div>
+      <h3 class="display-4 text-center">Control flow</h3>
+
+      <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+        <div class="container-fluid bg-light mr-md-3 text-center overflow-hidden">
+          <div class="my-2 py-2">
+            <h2 class="display-5">DCR Graph</h2>
+          </div> <div class="mb-2 pb-2">
+            <img src="{{ url_for('static', filename = dcrpath) }}" width="50%" style="mix-blend-mode: multiply;" />
+          </div>
+        </div>
+      </div>
+
+      <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+        <div class="container-fluid bg-light mr-md-3 text-center overflow-hidden">
+          <div class="my-2 py-2">
+            <h2 class="display-5">Process Tree (to BPMN)</h2>
+          </div> <div class="mb-2 pb-2">
+            <img src="{{ url_for('static', filename = pnpath) }}" class="img-fluid" style="mix-blend-mode: multiply;" />
+          </div>
+        </div>
+      </div>
+      <h3 class="display-4 text-center">Data flow</h3>
+
+      <div class="row d-md-flex flex-md-equal w-auto mx-3 mb-3">
+        <div class="col container-fluid bg-light mr-md-3 text-center overflow-hidden pb-2">
+          <div class="my-2 py-2">
+            <h2 class="display-5">Frequency</h2>
+          </div>
+          <div class="bg-white shadow-sm mx-auto" style="width: 90%;">
+            <table class="table" style="border-top-style: none;">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Sum</th>
+                  <th scope="col">Min</th>
+                  <th scope="col">Max</th>
+                  <th scope="col">Avg</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for act in listofact %}
+                  <tr>
+                    <td scope="row">{{ act }}</td>
+                    <td>{{ freq['Sum'].get(act) }}</td>
+                    <td>{{ freq['Min'].get(act) }}</td>
+                    <td>{{ freq['Max'].get(act) }}</td>
+                    <td>{{'%0.2f'|format(freq['Mean'].get(act)|float)}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col container-fluid bg-light md-3 text-center overflow-hidden pb-2 ">
+          <div class="my-2 py-2">
+            <h2 class="display-5">Trace length</h2>
+          </div>
+          <div class="bg-white shadow-sm mx-auto  mb-3" style="width: 90%;">
+            <table class="table" style="border-top-style: none;">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Min</th>
+                  <th scope="col">Max</th>
+                  <th scope="col">Avg</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ len['Min'] }}</td>
+                  <td>{{ len['Max'] }}</td>
+                  <td>{{ len['Mean'] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <!--  <div class="position-relative overflow-hidden text-center bg-light ">
+        <div class="col-md-6 p-lg-5 mx-auto mt-5">
+          <h1 class="display-4 font-weight-normal">Conformance Checking</h1>
+          <p class="lead font-weight-normal">Press the button to check the conformance between the models and a new instance of the process.</p>
+          <a href="/conformance" class="btn btn-primary btn-lg" >Conformance</a>
+        </div>
+      </div>-->
+      <hr />
+    </main>
+
+    <footer class="container">
+      <p></p>
+    </footer>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

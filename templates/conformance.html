@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Miner</title>
+    <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/svgs/solid/rocket.svg>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark navbar-static-top">
+      <a class="navbar-brand" href="\">Miner</a>
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="\discovery">Discovery</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="\conformance">Conformance</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main role="main">
+      <div class="position-relative overflow-hidden text-center bg-light">
+        <div class="col-md-8 p-lg-5 mx-auto mt-5">
+          <h1 class="display-4 font-weight-normal">Conformance checking</h1>
+          <p class="lead font-weight-normal">Conformance of control flow and data flow dimension.</p>
+        </div>
+      </div>
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+            <div class="alert {{'alert-success' if fitness>0.5 else 'alert-danger' }} container-fluid mr-md-3 text-center overflow-hidden" role="alert">
+            <h4 class="alert-heading">{{'NOT' if fitness<=0.5 }} OK!</h4>
+            <p>The trace is {{'NOT' if fitness<=0.5 }} a compliant case!</p>
+            </div>
+        </div>
+       
+        <h3 class="display-4 text-center">Fitness values</h3>
+        <div class="row d-md-flex flex-md-equal w-auto mx-3 mb-3">
+          <div class="col container-fluid bg-light mr-md-3 text-center overflow-hidden  pb-2">
+            <div class="my-2 py-2">
+              <h2 class="display-5">Control flow</h2>
+            </div>
+            <div class="bg-white shadow-sm mx-auto" style="width: 60%;">
+              <table class="table h-100" style="border-top-style: none;">
+              <thead class="table-light">
+                  <tr>
+                  <th scope="col" class="{{'table-success' if cccf>0.5 else 'table-danger' }}">Fitness</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td class="{{'table-success' if cccf>0.5 else 'table-danger' }}">{{cccf}}</td>
+                  </tr>
+              </tbody>
+              </table>
+          </div>
+          </div>
+          <div class="col container-fluid bg-light mr-md-3 text-center overflow-hidden  pb-2">
+            <div class="my-2 py-2">
+              <h2 class="display-5">Average</h2>
+            </div>
+            <div class="bg-white shadow-sm mx-auto" style="width: 60%;">
+              <table class="table h-100" style="border-top-style: none;">
+              <thead class="table-light">
+                  <tr>
+                  <th scope="col" class="{{'table-success' if fitness>0.5 else 'table-danger' }} ">Fitness</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td class="{{'table-success' if fitness>0.5 else 'table-danger' }}">{{fitness}}</td>
+                  </tr>
+              </tbody>
+              </table>
+          </div>
+          </div>
+          <div class="col container-fluid bg-light md-3 text-center overflow-hidden  pb-2">
+            <div class="my-2 py-2">
+              <h2 class="display-5">Data flow</h2>
+            </div>
+            <div class="bg-white shadow-sm mx-auto" style="width: 60%;">
+              <table class="table h-100" style="border-top-style: none;">
+              <thead class="table-light">
+                  <tr>
+                  <th scope="col" class="{{'table-success' if ccdf>0.5 else 'table-danger' }} ">Fitness</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td class="{{'table-success' if ccdf>0.5 else 'table-danger' }}">{{ccdf}}</td>
+                  </tr>
+              </tbody>
+              </table>
+          </div>
+          </div>
+        </div>
+<h3 class="display-4 text-center">Control flow</h3>
+        <div class="row d-md-flex flex-md-equal w-auto mx-3 mb-3">
+            <div class="col container-fluid bg-light md-3 text-center overflow-hidden  pb-2">
+                <div class="my-2 py-2">
+                    <h2 class="display-5">DCR Graph</h2>
+                </div> 
+                <div class="bg-white shadow-sm mx-auto" style="width: 30%;">
+                    <table class="table h-100" style="border-top-style: none;">
+                    <thead class="table-light">
+                        <tr>
+                        <th scope="col" class="{{'table-success' if ccdcr>0.5 else 'table-danger' }} ">Fitness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="{{'table-success' if ccdcr>0.5 else 'table-danger' }}">{{ccdcr}}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row d-md-flex flex-md-equal w-auto mx-3 mb-3">
+            <div class="col container-fluid bg-light md-3 text-center overflow-hidden pb-2">
+                <div class="my-2 py-2">
+                    <h2 class="display-5">Process tree</h2>
+                </div> 
+                <div class="bg-white shadow-sm mx-auto" style="width: 30%;">
+                    <table class="table h-100" style="border-top-style: none;">
+                    <thead class="table-light">
+                        <tr>
+                        <th scope="col" class="{{'table-success' if ccind>0.5 else 'table-danger' }} ">Fitness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="{{'table-success' if ccind>0.5 else 'table-danger' }}">{{ccind}}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <div class="bg-white shadow-sm mx-auto table-responsive mb-3" style="width: 90%;">
+                    <table class="table" style="border-top-style: none;">
+                          <tr>
+                            {% for el in top %}
+                            <td>{{el}}</td>
+                            {% endfor %}
+                          </tr>
+                          <tr>
+                            {% for el in bottom %}
+                            <td>{{el}}</td>
+                            {% endfor %}
+                          </tr>
+                    </table>  
+                  </div>
+            </div>
+        </div>
+        <h3 class="display-4 text-center">Data flow</h3>
+        <div class="row d-md-flex flex-md-equal w-auto mx-3 mb-3">
+            <div class="col container-fluid bg-light mr-md-3 text-center overflow-hidden pb-2">
+              <div class="my-2 py-2">
+                <h2 class="display-5">Frequency</h2>
+              </div>
+              <div class="shadow-sm mx-auto mb-3" style="width: 50%;">
+                <table class="table" style="border-top-style: none;">
+                    <thead class="table-light">
+                        <tr>
+                        <th scope="col" class="{{'table-success' if ccfreq>0.5 else 'table-danger' }} ">Fitness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="{{'table-success' if ccfreq>0.5 else 'table-danger' }}">{{ccfreq}}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+              </div>
+              <div class="bg-white shadow-sm mx-auto " style="width: 90%;">
+                <table class="table" style="border-top-style: none;">
+                  <thead class="table-light">
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Sum</th>
+                      <th scope="col">Min</th>
+                      <th scope="col">Max</th>
+                      <th scope="col">Avg</th>
+                      <th scope="col" class="{{'text-success' if ccfreq>0.5 else 'text-danger'}} bg-light">Actual Sum</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for act in listofact %}
+                      <tr>
+                        <td scope="row">{{ act }}</td>
+                        <td>{{ freq['Sum'].get(act) }}</td>
+                        <td>{{ freq['Min'].get(act) }}</td>
+                        <td>{{ freq['Max'].get(act) }}</td>
+                        <td>{{'%0.2f'|format(freq['Mean'].get(act)|float)}}</td>
+                        <td class="{{'text-success' if ccfreq>0.5 else 'text-danger'}} bg-light"><strong>{{fresum.get(act)}}</strong></td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>  
+              </div>
+              
+            </div>
+
+
+            <div class="col container-fluid bg-light md-3 text-center overflow-hidden pb-2">
+              <div class="my-2 py-2">
+                <h2 class="display-5">Trace length</h2>
+              </div>
+              <div class="shadow-sm mx-auto mb-3" style="width: 50%;">
+                <table class="table" style="border-top-style: none;">
+                    <thead class="table-light">
+                        <tr>
+                        <th scope="col" class="{{'table-success' if cclen>0.5 else 'table-danger' }} ">Fitness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="{{'table-success' if cclen>0.5 else 'table-danger' }}">{{cclen}}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+              </div>
+              <div class="bg-white shadow-sm mx-auto  mb-3" style="width: 90%">
+                <table class="table" style="border-top-style: none;">
+                  <thead class="table-light">
+                    <tr>
+                      <th scope="col">Min</th>
+                      <th scope="col">Max</th>
+                      <th scope="col">Avg</th>
+                      <th scope="col" class="{{'text-success' if cclen>0.5 else 'text-danger' }} bg-light">Actual Length</th>
+                    </tr>
+                  </thead>
+                  <tbody> 
+                    <tr>
+                      <td>{{ len['Min'] }}</td>
+                      <td>{{ len['Max'] }}</td>
+                      <td>{{ len['Mean'] }}</td>
+                      <td class="{{'text-success' if cclen>0.5 else 'text-danger' }} bg-light"><strong>{{lentrace}}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            </div>
+          </div>
+         
+
+
+          <div class="row d-md-flex flex-md-equal w-auto mx-3 mb-3">
+            <div class="col container-fluid bg-light md-3 text-center overflow-hidden  pb-2">
+                <div class="my-2 py-2">
+                    <h2 class="display-5">Fitness variation over time</h2>
+                </div> 
+                <div class="bg-white shadow-sm mx-auto" style="width: 80%; height:300px">
+                        <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+      <hr />
+    </main>
+
+    <footer class="container">
+      <p></p>
+    </footer>
+
+    
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        const labels = {{ labels | tojson}};
+ 
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Avg Fitness',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: {{ fits | tojson}},
+            }]
+        };
+ 
+        const config = {
+            type: 'line',
+            data: data,
+            options: { maintainAspectRatio: false }
+        };
+ 
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+ 
+    </script>
+
+  </body>
+</html>
